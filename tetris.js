@@ -283,7 +283,9 @@ function startGame() {
     drop();
     mostrarSiguientePieza(); // Mostrar la siguiente pieza
 
+   
 }
+
 
 // Actualizar resetGame para reiniciar el contador de tiempo
 function resetGame() {
@@ -291,7 +293,6 @@ function resetGame() {
     gameOver = false; // Restablecer el estado de gameOver
     stopTimer();
     timerElement.textContent = "00:00";
-    startTimer(); // Asegurar que el tiempo se reinicie al reiniciar el juego
     for (let r = 0; r < ROW; r++) {
         for (let c = 0; c < COL; c++) {
             board[r][c] = VACANT;
@@ -299,7 +300,21 @@ function resetGame() {
     }
     drawBoard();
     scoreElement.innerHTML = score;
+
+    if (!confirm("¿Quieres volver a jugar?")) {
+        // El usuario ha decidido no volver a jugar, detenemos el contador de tiempo
+        restartButton.style.display = "block";
+        stopTimer();
+    } else {
+        // El usuario quiere volver a jugar, iniciamos el juego nuevamente
+        startTimer(); // Asegurar que el tiempo se reinicie al reiniciar el juego
+        generatePieceSequence(); // Generar una nueva secuencia de piezas aleatorias
+        p = getNextPiece(); // Obtener la primera pieza en la secuencia
+        drop();
+        mostrarSiguientePieza(); // Mostrar la siguiente pieza
+    }
 }
+
 
 // Función para mostrar la siguiente pieza
 function mostrarSiguientePieza() {
