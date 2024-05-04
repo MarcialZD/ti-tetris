@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tetris</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container-wrapper">
+    <div class="container">
+      <canvas id="tetris" width="200" height="400"></canvas>
+      <div class="controls">
+        <button class="button" id="start-button">Iniciar Juego</button>
+        <button class="button" id="restart-button">Volver a Jugar</button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="players-container">
+        <h2>Jugadores</h2>
+        <div id="players">
+        </div>
+      </div>
+      <div class="stats">
+        <div id="score-container">
+          Puntaje: <span id="score">0</span>
+        </div>
+        <div id="time-container">
+          Tiempo: <span id="timer">00:00</span>
+        </div>
+      </div>
+        <div id="next-piece">Proxima Pieza:</div>
+        </div>
+      <div class="empty-container">
+        </div>
+    </div>
+  </div>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <script src="tetrominoes.js"></script>
+  <script src="tetris.js"></script>
+  <script src="myapp.js"></script>
+</body>
+</html>
+
