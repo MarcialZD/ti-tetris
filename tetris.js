@@ -10,18 +10,15 @@ let timerInterval;
 const ROW = 20;
 const COL = COLUMN = 10;
 const SQ = squareSize = 20;
-const VACANT = "WHITE"; // color of an empty square
+const VACANT = "WHITE";
 
-// draw a square
 function drawSquare(x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * SQ, y * SQ, SQ, SQ);
-
     ctx.strokeStyle = "BLACK";
     ctx.strokeRect(x * SQ, y * SQ, SQ, SQ);
 }
 
-// create the board
 let board = [];
 for (let r = 0; r < ROW; r++) {
     board[r] = [];
@@ -40,7 +37,6 @@ function drawBoard() {
 
 drawBoard();
 
-// the pieces and their colors
 const PIECES = [
     [Z, "red"],
     [S, "green"],
@@ -51,19 +47,17 @@ const PIECES = [
     [J, "orange"]
 ];
 
-let pieceSequence = []; // Array para almacenar la secuencia de piezas
-let nextPieceIndex = 0; // Índice de la próxima pieza en la secuencia
+let pieceSequence = [];
+let nextPieceIndex = 0;
 
-// Función para generar una nueva secuencia de piezas aleatorias
 function generatePieceSequence() {
     pieceSequence = [];
-    while (pieceSequence.length < 10) { // Longitud de la secuencia, puedes ajustarla
+    while (pieceSequence.length < 10) {
         const randomIndex = Math.floor(Math.random() * PIECES.length);
         pieceSequence.push(randomIndex);
     }
 }
 
-// Función para obtener la siguiente pieza en la secuencia
 function getNextPiece() {
     const nextIndex = pieceSequence[nextPieceIndex];
     const [tetromino, color] = PIECES[nextIndex];
@@ -71,17 +65,15 @@ function getNextPiece() {
     return new Piece(tetromino, color);
 }
 
-// The Object Piece
 function Piece(tetromino, color) {
     this.tetromino = tetromino;
     this.color = color;
-    this.tetrominoN = 0; // we start from the first pattern
+    this.tetrominoN = 0;
     this.activeTetromino = this.tetromino[this.tetrominoN];
     this.x = 3;
     this.y = -2;
 }
 
-// fill function
 Piece.prototype.fill = function (color) {
     for (let r = 0; r < this.activeTetromino.length; r++) {
         for (let c = 0; c < this.activeTetromino.length; c++) {
@@ -92,31 +84,26 @@ Piece.prototype.fill = function (color) {
     }
 }
 
-// draw a piece to the board
 Piece.prototype.draw = function () {
     this.fill(this.color);
 }
 
-// undraw a piece
 Piece.prototype.unDraw = function () {
     this.fill(VACANT);
 }
 
-// move Down the piece
 Piece.prototype.moveDown = function () {
     if (!this.collision(0, 1, this.activeTetromino)) {
         this.unDraw();
         this.y++;
         this.draw();
     } else {
-        // Lock the piece and generate a new one
         this.lock();
-        p = getNextPiece(); // Obtener la próxima pieza en la secuencia
-        mostrarSiguientePieza(); // Mostrar la siguiente pieza
+        p = getNextPiece();
+        mostrarSiguientePieza();
     }
 }
 
-// move Right the piece
 Piece.prototype.moveRight = function () {
     if (!this.collision(1, 0, this.activeTetromino)) {
         this.unDraw();
@@ -125,7 +112,6 @@ Piece.prototype.moveRight = function () {
     }
 }
 
-// move Left the piece
 Piece.prototype.moveLeft = function () {
     if (!this.collision(-1, 0, this.activeTetromino)) {
         this.unDraw();
@@ -134,23 +120,20 @@ Piece.prototype.moveLeft = function () {
     }
 }
 
-// rotate the piece
 Piece.prototype.rotate = function () {
     let nextPattern = this.tetromino[(this.tetrominoN + 1) % this.tetromino.length];
     let kick = 0;
     if (this.collision(0, 0, nextPattern)) {
         if (this.x > COL / 2) {
-            // it's the right wall
-            kick = -1; // we need to move the piece to the left
+            kick = -1;
         } else {
-            // it's the left wall
-            kick = 1; // we need to move the piece to the right
+            kick = 1;
         }
     }
     if (!this.collision(kick, 0, nextPattern)) {
         this.unDraw();
         this.x += kick;
-        this.tetrominoN = (this.tetrominoN + 1) % this.tetromino.length; // (0+1)%4 => 1
+        this.tetrominoN = (this.tetrominoN + 1) % this.tetromino.length;
         this.activeTetromino = this.tetromino[this.tetrominoN];
         this.draw();
     }
@@ -167,14 +150,15 @@ Piece.prototype.lock = function () {
             if (this.y + r < 0) {
                 if (!gameOver) {
                     gameOver = true;
+                    stopTimer();
                     alert("Game Over");
                     if (confirm("¿Quieres volver a jugar?")) {
                         resetGame();
-                        return; // Asegúrate de salir de la función después de resetear el juego
+                        return;
                     } else {
                         restartButton.style.display = "block";
                     }
-                    break; // Debes salir del bucle cuando se detecta el Game Over
+                    break;
                 }
             }
             board[this.y + r][this.x + c] = this.color;
@@ -201,7 +185,6 @@ Piece.prototype.lock = function () {
     scoreElement.innerHTML = score;
 }
 
-// collision function
 Piece.prototype.collision = function (x, y, piece) {
     for (let r = 0; r < piece.length; r++) {
         for (let c = 0; c < piece.length; c++) {
@@ -224,7 +207,6 @@ Piece.prototype.collision = function (x, y, piece) {
     return false;
 }
 
-// CONTROL the piece
 document.addEventListener("keydown", CONTROL);
 
 function CONTROL(event) {
@@ -257,7 +239,6 @@ function drop() {
     }
 }
 
-// Función para iniciar el contador de tiempo
 function startTimer() {
     let startTime = Date.now();
     timerInterval = setInterval(function () {
@@ -270,27 +251,22 @@ function startTimer() {
     }, 1000);
 }
 
-// Función para detener el contador de tiempo
 function stopTimer() {
     clearInterval(timerInterval);
 }
 
-// Actualizar startGame para iniciar el contador de tiempo
 function startGame() {
     startTimer();
-    generatePieceSequence(); // Generar una nueva secuencia de piezas aleatorias
-    p = getNextPiece(); // Obtener la primera pieza en la secuencia
+    generatePieceSequence();
+    p = getNextPiece();
     drop();
-    mostrarSiguientePieza(); // Mostrar la siguiente pieza
-
-   
+    mostrarSiguientePieza();
+    restartButton.style.display = "block";
 }
 
-
-// Actualizar resetGame para reiniciar el contador de tiempo
 function resetGame() {
     score = 0;
-    gameOver = false; // Restablecer el estado de gameOver
+    gameOver = false;
     stopTimer();
     timerElement.textContent = "00:00";
     for (let r = 0; r < ROW; r++) {
@@ -301,22 +277,18 @@ function resetGame() {
     drawBoard();
     scoreElement.innerHTML = score;
 
-    if (!confirm("¿Quieres volver a jugar?")) {
-        // El usuario ha decidido no volver a jugar, detenemos el contador de tiempo
+    if (gameOver && !confirm("¿Quieres volver a jugar?")) {
         restartButton.style.display = "block";
-        stopTimer();
-    } else {
-        // El usuario quiere volver a jugar, iniciamos el juego nuevamente
-        startTimer(); // Asegurar que el tiempo se reinicie al reiniciar el juego
-        generatePieceSequence(); // Generar una nueva secuencia de piezas aleatorias
-        p = getNextPiece(); // Obtener la primera pieza en la secuencia
-        drop();
-        mostrarSiguientePieza(); // Mostrar la siguiente pieza
+        return;
     }
+
+    startTimer();
+    generatePieceSequence();
+    p = getNextPiece();
+    drop();
+    mostrarSiguientePieza();
 }
 
-
-// Función para mostrar la siguiente pieza
 function mostrarSiguientePieza() {
     const siguientePieza = pieceSequence[nextPieceIndex];
     const [tetromino, color] = PIECES[siguientePieza];
@@ -345,6 +317,5 @@ document.getElementById("start-button").addEventListener("click", function () {
 });
 
 restartButton.addEventListener("click", function () {
-    restartButton.style.display = "none";
     resetGame();
 });
