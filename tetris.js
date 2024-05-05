@@ -15,7 +15,7 @@ const VACANT = "WHITE";
 function drawSquare(x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * SQ, y * SQ, SQ, SQ);
-    ctx.strokeStyle = "BLACK";
+    ctx.strokeStyle = "WHITE";
     ctx.strokeRect(x * SQ, y * SQ, SQ, SQ);
 }
 
@@ -148,17 +148,29 @@ Piece.prototype.lock = function () {
                 continue;
             }
             if (this.y + r < 0) {
+                reproducirAudioGameOver();
                 if (!gameOver) {
                     gameOver = true;
                     stopTimer();
-                    alert("Game Over");
-                    if (confirm("¿Quieres volver a jugar?")) {
-                        resetGame();
-                        return;
-                    } else {
-                        restartButton.style.display = "block";
-                    }
-                    break;
+                    Swal.fire({
+                        title: "Game Over",
+                        text: "¿Quieres volver a jugar?",
+                        icon: "error",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Sí",
+                        cancelButtonText: "No"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+            displayPlayers(0);
+
+                            resetGame();
+                        } else {
+                            restartButton.style.display = "block";
+                        }
+                    });
+                    return;
                 }
             }
             board[this.y + r][this.x + c] = this.color;
@@ -178,7 +190,12 @@ Piece.prototype.lock = function () {
             for (let c = 0; c < COL; c++) {
                 board[0][c] = VACANT;
             }
+            displayPlayers(0);
+
             score += 10;
+            displayPlayers(score);
+
+            reproducirAudioLineClear();
         }
     }
     drawBoard();
@@ -319,3 +336,83 @@ document.getElementById("start-button").addEventListener("click", function () {
 restartButton.addEventListener("click", function () {
     resetGame();
 });
+
+
+//CAMBIO
+
+// Define las URL de los archivos de audio
+const audioURLs = [
+    "Tetris (Tengen) (NES) Music - Level Up Dancers.mp3",
+    "Original Tetris theme.mp3",
+    "Tetris (Tengen) (NES) Music - Troika.mp3",
+    "Tetris (Tengen) (NES) Music - Bradinsky.mp3"
+];
+
+// Obtén el botón de reproducir música, la barra de sonido y el elemento de audio
+const playMusicBtn = document.getElementById('start-button');
+const volumeSlider = document.getElementById('volume-slider');
+const audioElement = document.getElementById('audio');
+
+// Agrega eventos de clic y de cambio a los elementos
+playMusicBtn.addEventListener('click', function () {
+    reproducirAudioAleatorio();
+});
+
+volumeSlider.addEventListener('input', function () {
+    ajustarVolumen(this.value);
+});
+
+audioElement.addEventListener('ended', function () {
+    reproducirAudioAleatorio(); // Reproduce otro audio al finalizar la canción actual
+});
+
+// Función para reproducir un audio aleatorio
+function reproducirAudioAleatorio() {
+    // Detén la reproducción si ya hay un audio reproduciéndose
+    audioElement.pause();
+
+    // Selecciona aleatoriamente una URL de audio del array
+    const randomIndex = Math.floor(Math.random() * audioURLs.length);
+    const randomAudioURL = audioURLs[randomIndex];
+
+    // Establece la URL seleccionada en el elemento de audio
+    audioElement.src = randomAudioURL;
+
+    // Reproduce el audio
+    audioElement.play();
+}
+
+// Función para ajustar el volumen
+function ajustarVolumen(valor) {
+    audioElement.volume = valor;
+}
+
+// Función para reproducir el audio de "Game Over"
+function reproducirAudioGameOver() {
+    // Detén la reproducción si ya hay un audio reproduciéndose
+    audioElement.pause();
+
+    // Obtén la URL del audio de "Game Over"
+    const gameOverAudioURL = "Tetris (Tengen) (NES) Music - Game Over.mp3";
+
+    // Establece la URL en el elemento de audio
+    audioElement.src = gameOverAudioURL;
+
+    // Reproduce el audio
+    audioElement.play();
+}
+
+
+// Función para reproducir el audio de "Tetris (Game Boy) Line Clear"
+function reproducirAudioLineClear() {
+
+    // Obtén la URL del audio de "Tetris (Game Boy) Line Clear"
+    const lineClearAudioURL = "Tetris (Game Boy) Line Clear.mp3";
+
+    // Establece la URL en el elemento de audio
+    audioElement.src = lineClearAudioURL;
+
+    // Reproduce el audio
+    audioElement.play();
+}
+
