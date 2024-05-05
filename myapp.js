@@ -28,3 +28,14 @@ $(document).ready(function() {
         }
     });
 });
+
+function verificarLogeo() {
+    if (window.location.pathname === '/index.html') {
+        if (localStorage.getItem("userId") === undefined) {
+            // Redirige al usuario a login.html
+            window.location.href = "login.html";
+        }
+    }
+}
+
+verificarLogeo();
