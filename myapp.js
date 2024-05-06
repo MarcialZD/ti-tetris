@@ -29,13 +29,18 @@ $(document).ready(function() {
     });
 });
 
-function verificarLogeo() {
-    if (window.location.pathname === '/index.html') {
-        if (localStorage.getItem("userId") === undefined) {
-            // Redirige al usuario a login.html
-            window.location.href = "login.html";
-        }
-    }
-}
 
-verificarLogeo();
+// CAMBIO
+function openModal(){
+    var modal = document.getElementById('modal');
+    modal.style.display = 'block';
+}
+// CAMBIO
+function closeModal(){
+    var modal = document.getElementById('modal');
+    modal.style.display = 'none';
+}
+// CAMBIO
+document.getElementById('restart-button').addEventListener('click', function() {
+    location.reload();
+  });

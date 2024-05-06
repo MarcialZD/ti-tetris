@@ -8,6 +8,13 @@
 </head>
 <body>
 <!-- CAMBIO -->
+<div class="img-container" onclick="openModal()">
+  <img id="open-modal-img" src="configuracion.png" alt="Configuración">
+  <img id="open-modal-help-img" src="ayuda.png" alt="Configuración">
+
+</div>
+
+<!-- CAMBIO -->
   <audio id="audio" src=""></audio>
 
   <div class="container-wrapper">
@@ -39,11 +46,7 @@
     </div>
   </div>
 
-<!-- CAMBIO -->
-<div class="img-container" onclick="openModal()">
-  <img id="open-modal-img" src="configuracion.png" alt="Configuración">
-</div>
-<button id="logout-button">Cerrar Sesión</button>
+
 <!-- CAMBIO -->
 <div id="modal" class="modal">
 <div class="modal-content">
@@ -60,17 +63,6 @@
   <script src="tetris.js"></script>
   <script src="myapp.js"></script>
   <script src="gestion_players.js"></script>
-</body>
-<script>
-  // Función para cerrar sesión y borrar elemento del localStorage
-  function cerrarSesion() {
-    // Elimina el elemento del localStorage
-    localStorage.removeItem("userId");
-    // Redirige al usuario a la página de inicio de sesión (login.html)
-    window.location.href = "login.html";
-  }
 
-  // Asociar la función al evento click del botón de cerrar sesión
-  document.getElementById("logout-button").addEventListener("click", cerrarSesion);
-</script>
+</body>
 </html>
