@@ -279,6 +279,8 @@ function startGame() {
     drop();
     mostrarSiguientePieza();
     restartButton.style.display = "block";
+
+
 }
 
 function resetGame() {
@@ -304,6 +306,8 @@ function resetGame() {
     p = getNextPiece();
     drop();
     mostrarSiguientePieza();
+displayPlayers(0);
+
 }
 
 function mostrarSiguientePieza() {
