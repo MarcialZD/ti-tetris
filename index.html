@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tetris</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<!-- CAMBIO -->
-<div class="img-container" onclick="openModal()">
-  <img id="open-modal-img" src="configuracion.png" alt="Configuración">
-  <img id="open-modal-help-img" src="ayuda.png" alt="Configuración">
+  <!-- CAMBIO -->
+  <div class="img-container" onclick="openModal()">
+    <img id="open-modal-img" src="configuracion.png" alt="Configuración">
+    <img id="open-modal-help-img" src="ayuda.png" alt="Configuración">
 
-</div>
+  </div>
 
-<!-- CAMBIO -->
+  <!-- CAMBIO -->
   <audio id="audio" src=""></audio>
 
   <div class="container-wrapper">
@@ -39,21 +41,23 @@
           Tiempo: <span id="timer">00:00</span>
         </div>
       </div>
-        <div id="next-piece">Proxima Pieza:</div>
-        </div>
-      <div class="empty-container">
-        </div>
+      <div id="next-piece">Proxima Pieza:</div>
     </div>
+    <div class="empty-container">
+    </div>
+  </div>
   </div>
 
 
-<!-- CAMBIO -->
-<div id="modal" class="modal">
-<div class="modal-content">
-  <button class="close-btn" onclick="closeModal()">X</button>
-  <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
-</div>
-</div>
+  <!-- CAMBIO -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">X</button>
+      <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
+    </div>
+  </div>
+  <button id="cerrarSesion">Cerrar Sesión</button>
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,6 +67,36 @@
   <script src="tetris.js"></script>
   <script src="myapp.js"></script>
   <script src="gestion_players.js"></script>
+  <script>
+    //verificación
+    function verificarLocalStorage() {
+      var paginaActual = window.location.pathname; // Obtiene la ruta de la página actual
 
+      // Verifica si estamos en un archivo .html
+      if (paginaActual.endsWith("index.html")) {
+        // Verifica si el elemento está presente en localStorage
+        if (!localStorage.getItem("userId")) {
+          // Si no está presente, redirecciona a login.html
+          window.location.href = "login.html";
+        }
+      } else {
+        console.log("No es una página HTML.");
+      }
+    }
+    verificarLocalStorage();
+    function cerrarSesion() {
+      // Elimina el elemento "userId" del localStorage
+      localStorage.removeItem("userId");
+      // Redirecciona a la página de inicio de sesión
+      window.location.href = "login.html";
+    }
+
+    // Obtener referencia al botón
+    var botonCerrarSesion = document.getElementById("cerrarSesion");
+
+    // Agregar evento de clic al botón
+    botonCerrarSesion.addEventListener("click", cerrarSesion);
+  </script>
 </body>
+
 </html>

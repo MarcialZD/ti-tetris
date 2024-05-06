@@ -44,3 +44,5 @@ function closeModal(){
 document.getElementById('restart-button').addEventListener('click', function() {
     location.reload();
   });
+
+

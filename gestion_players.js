@@ -38,3 +38,4 @@ displayPlayers();
 function buscarPlayer(idParam){
     return players.find(player => player.id == idParam);
 }
+
