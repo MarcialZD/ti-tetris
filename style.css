@@ -347,7 +347,7 @@ width: 283px;
   font-family: 'Press Start 2P', cursive;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   transition: 0.3s;
-  margin: 5px;
+  margin: 10px;
 }
 
 #cerrarSesion:hover {
