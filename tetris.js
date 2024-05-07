@@ -156,7 +156,10 @@ Piece.prototype.lock = function () {
                     gameOver = true;
                     stopTimer();
                     Swal.fire({
-                        title: `Game Over! Puntaje: ${score}`,
+                        title: `Game Over!\n Puntaje: ${score} \nTiempo:${
+      timerElement.textContent
+
+                        }`,
                         text: "¿Quieres volver a jugar?",
                         icon: "error",
                         showCancelButton: true,
