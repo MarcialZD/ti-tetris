@@ -27,7 +27,7 @@ unicode-bidi: isolate;
 .container-wrapper {
   margin-top: 2%;
   display: flex;
-  width: 42%;
+  width: 40%;
   height: 80%;
   background: url('pared.png');
   border: 3px solid #424242;
@@ -36,7 +36,7 @@ unicode-bidi: isolate;
 
 .container {
   width: 40%;
-  padding: 10px;
+  padding: 5px;
   border-right: 3px solid #424242;
 }
 
@@ -44,7 +44,6 @@ unicode-bidi: isolate;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
   margin-top: 10px;
   background-color: #292b2c;
 }
@@ -105,7 +104,9 @@ unicode-bidi: isolate;
 
 .sidebar {
   width: 100%;
-  padding: 10px;
+  padding: 10px 30px;
+ 
+
 }
 
 .sidebar h2 {

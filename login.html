@@ -25,7 +25,7 @@
         <button type="button" id="login-button">Iniciar Sesión</button>
     </form>
 
-    <div id="error-message">&#169 Todos los derechos reservados</div>
+    <div id="copy">&copy; Todos los derechos reservados</div>
  
 </body>
 
@@ -35,7 +35,12 @@
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <script src="jquery.js"></script>
 <script src="myapp.js">
-    
-        
+</script>
+<script>
+ const copyMessage = document.getElementById("copy");
+const currentYear = new Date().getFullYear();
+
+copyMessage.innerHTML = `&copy; 2024${currentYear > 2024 ? ` - ${currentYear}` : ""} Derechos Reservados`;
+
 </script>
 </html>

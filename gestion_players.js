@@ -1,5 +1,5 @@
 let score_player_actual=0;
-const displayPlayers = (score_player_actual) => {
+const displayPlayers = (score_player_actual,color) => {
     let userId = localStorage.getItem("userId");
 
     // Buscamos nuestro jugador
@@ -11,13 +11,9 @@ const displayPlayers = (score_player_actual) => {
     players.forEach(player => {
         if(player.id === player_actual.id){
             player.score = score_player_actual;
-            if (player.score !== undefined) {
-                // El score está definido
-            } else {
-                // El score es undefined
-                player.score=0;
+            if (player.score === undefined) {
+                player.score = 0;
             }
-            
         }
     });
 
@@ -28,9 +24,16 @@ const displayPlayers = (score_player_actual) => {
     players.forEach(player => {
         let playerDiv = document.createElement("div");
         playerDiv.textContent = `${player.name}: ${player.score}`;
+        if (player.id == userId) {
+            playerDiv.style.color =  color ;
+        }
         playersElement.appendChild(playerDiv);
+        console.log("hola");
+
     });
 }
+
+
 
 // Llamar a la función para mostrar los jugadores al inicio
 displayPlayers();

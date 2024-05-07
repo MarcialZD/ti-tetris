@@ -6,7 +6,8 @@ const restartButton = document.getElementById("restart-button");
 const timerElement = document.getElementById("timer");
 const nextPieceElement = document.getElementById("next-piece");
 let timerInterval;
-
+// Variable para almacenar el color del tetrimino actual
+let currentTetriminoColor;
 const ROW = 20;
 const COL = COLUMN = 10;
 const SQ = squareSize = 20;
@@ -101,6 +102,8 @@ Piece.prototype.moveDown = function () {
         this.lock();
         p = getNextPiece();
         mostrarSiguientePieza();
+        currentTetriminoColor = p.color;
+        displayPlayers(score, currentTetriminoColor);
     }
 }
 
@@ -153,7 +156,7 @@ Piece.prototype.lock = function () {
                     gameOver = true;
                     stopTimer();
                     Swal.fire({
-                        title: "Game Over",
+                        title: `Game Over! Puntaje: ${score}`,
                         text: "¿Quieres volver a jugar?",
                         icon: "error",
                         showCancelButton: true,
@@ -163,7 +166,7 @@ Piece.prototype.lock = function () {
                         cancelButtonText: "No"
                     }).then((result) => {
                         if (result.isConfirmed) {
-            displayPlayers(0);
+                            displayPlayers(0);
 
                             resetGame();
                         } else {
@@ -279,6 +282,9 @@ function startGame() {
     drop();
     mostrarSiguientePieza();
     restartButton.style.display = "block";
+    currentTetriminoColor = p.color;
+    displayPlayers(0, currentTetriminoColor);
+
 
 
 }
@@ -306,7 +312,7 @@ function resetGame() {
     p = getNextPiece();
     drop();
     mostrarSiguientePieza();
-displayPlayers(0);
+    displayPlayers(0);
 
 }
 
