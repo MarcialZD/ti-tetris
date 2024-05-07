@@ -332,3 +332,25 @@ width: 283px;
   border:2px solid #292b2c;
   border-radius: 4px;
 }
+
+#cerrarSesion {
+  background-color: #FF5733;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-family: 'Press Start 2P', cursive;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  transition: 0.3s;
+  margin: 5px;
+}
+
+#cerrarSesion:hover {
+  background-color: #FF4500;
+}
+
