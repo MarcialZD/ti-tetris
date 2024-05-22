@@ -2,101 +2,45 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tetris</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
 </head>
 
 <body>
-  <!-- CAMBIO -->
-  <div class="img-container" onclick="openModal()">
-    <img id="open-modal-img" src="configuracion.png" alt="Configuración">
-    <img id="open-modal-help-img" src="ayuda.png" alt="Configuración">
 
-  </div>
-
-  <!-- CAMBIO -->
-  <audio id="audio" src=""></audio>
-
-  <div class="container-wrapper">
-    <div class="container">
-      <canvas id="tetris" width="200" height="400"></canvas>
-      <div class="controls">
-        <button class="button" id="start-button">Iniciar Juego</button>
-        <button class="button" id="restart-button" style="display: none;">Volver a Jugar</button>
-      </div>
-    </div>
-    <div class="sidebar">
-      <div class="players-container">
-        <h2>Jugadores</h2>
-        <div id="players">
+    <form id="login-form">
+            <div class="titular"><h2 class=" titulo">Tetris UCH </h2><img class="nameimg"src="uch.png"></div>
+     <div class="datos">
+        <div>
+            <label for="username">Nombre de Usuario:</label>
+            <input type="text" id="username" name="username" required autocomplete="off">
         </div>
-      </div>
-      <div class="stats">
-        <div id="score-container">
-          Puntaje: <span id="score">0</span>
+        <div>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required autocomplete="off">
         </div>
-        <div id="time-container">
-          Tiempo: <span id="timer">00:00</span>
-        </div>
-      </div>
-      <div id="next-piece">Proxima Pieza:</div>
     </div>
-    <div class="empty-container">
-    </div>
-  </div>
-  </div>
+        <button type="button" id="login-button">Iniciar Sesión</button>
+    </form>
 
-
-  <!-- CAMBIO -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()">X</button>
-      <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
-    </div>
-  </div>
-  <button id="cerrarSesion">Cerrar Sesión</button>
-
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-  <script src="tetrominoes.js"></script>
-  <script src="tetris.js"></script>
-  <script src="myapp.js"></script>
-  <script src="gestion_players.js"></script>
-  <script>
-    //verificación
-    function verificarLocalStorage() {
-      var paginaActual = window.location.pathname; // Obtiene la ruta de la página actual
-
-      // Verifica si estamos en un archivo .html
-      if (paginaActual.endsWith("index.html")) {
-        // Verifica si el elemento está presente en localStorage
-        if (!localStorage.getItem("userId")) {
-          // Si no está presente, redirecciona a login.html
-          window.location.href = "login.html";
-        }
-      } else {
-        console.log("No es una página HTML.");
-      }
-    }
-    verificarLocalStorage();
-    function cerrarSesion() {
-      // Elimina el elemento "userId" del localStorage
-      localStorage.removeItem("userId");
-      // Redirecciona a la página de inicio de sesión
-      window.location.href = "login.html";
-    }
-
-    // Obtener referencia al botón
-    var botonCerrarSesion = document.getElementById("cerrarSesion");
-
-    // Agregar evento de clic al botón
-    botonCerrarSesion.addEventListener("click", cerrarSesion);
-  </script>
+    <div id="copy">&copy; Todos los derechos reservados</div>
+ 
 </body>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<script src="jquery.js"></script>
+<script src="myapp.js">
+</script>
+<script>
+ const copyMessage = document.getElementById("copy");
+const currentYear = new Date().getFullYear();
+
+copyMessage.innerHTML = `&copy; 2024${currentYear > 2024 ? ` - ${currentYear}` : ""} Derechos Reservados`;
+
+</script>
 </html>
