@@ -21,7 +21,7 @@ $(document).ready(function() {
             // Guardar el ID del usuario en localStorage
             localStorage.setItem("userId", player.id);
             // Si las credenciales coinciden, redirigir a index.html
-            window.location.href = "index.html";
+            window.location.href = "tetris.html";
         } else {
             // Si las credenciales son incorrectas, mostrar mensaje de error
             errorMessage.css("display", "block");
